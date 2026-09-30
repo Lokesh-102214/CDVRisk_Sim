@@ -57,7 +57,7 @@ export default function App() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
           {/* Left Column: 3D Viewer + Patient Form */}
-          <div className="lg:col-span-4 space-y-4">
+          <div className="lg:col-span-3 space-y-4">
             <div className="bg-slate-800/40 rounded-xl border border-slate-700/50 p-3">
               <h2 className="text-sm font-semibold text-slate-300 mb-2 flex items-center gap-2">
                 📋 Patient Clinical Data
@@ -69,7 +69,7 @@ export default function App() {
           </div>
 
           {/* Center: 3D Heart Viewer */}
-          <div className="lg:col-span-4">
+          <div className="lg:col-span-5">
             <div className="bg-slate-800/40 rounded-xl border border-slate-700/50 overflow-hidden sticky top-20" style={{ height: 'calc(100vh - 160px)' }}>
               <div className="p-3 border-b border-slate-700/50">
                 <h2 className="text-sm font-semibold text-slate-300 flex items-center gap-2">

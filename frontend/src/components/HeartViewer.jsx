@@ -20,7 +20,7 @@ export default function HeartViewer({ predictions, selectedVessel, onVesselClick
     <div className="canvas-container w-full h-full min-h-[400px] rounded-xl overflow-hidden relative">
       <Canvas
         camera={{
-          position: [0, 0, 1.2],
+          position: [0, 0, 1.8],
           fov: 45
         }}
         dpr={[1, 2]}
@@ -59,7 +59,7 @@ export default function HeartViewer({ predictions, selectedVessel, onVesselClick
           autoRotate={!predictions}
           autoRotateSpeed={1.5}
           minDistance={0.2}
-          maxDistance={3}
+          maxDistance={10}
         />
       </Canvas>
       {/* Overlay instructions */}
