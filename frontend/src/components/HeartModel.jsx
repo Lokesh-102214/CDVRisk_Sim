@@ -54,7 +54,7 @@ function ArteryTube({ name, points, probability, isSelected, isHovered, onPointe
   }, [probability]);
 
   const radius = isSelected ? 0.006 : isHovered ? 0.005 : 0.004;
-  const emissiveIntensity = isSelected ? 0.8 : isHovered ? 0.5 : 0.3;
+  const emissiveIntensity = isSelected ? 0.4 : isHovered ? 0.25 : 0.15;
 
   return (
     <mesh
@@ -75,12 +75,14 @@ function ArteryTube({ name, points, probability, isSelected, isHovered, onPointe
         onClick?.(name);
       }}
     >
-      <tubeGeometry args={[curve, 32, radius, 12, false]} />
+      <tubeGeometry args={[curve, 64, radius, 8, false]} />
       <meshStandardMaterial
         color={color}
+        transparent={true}
+        opacity={0.8}
         emissive={color}
         emissiveIntensity={emissiveIntensity}
-        roughness={0.3}
+        roughness={0.4}
         metalness={0.1}
       />
     </mesh>
