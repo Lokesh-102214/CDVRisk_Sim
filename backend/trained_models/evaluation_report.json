@@ -1,0 +1,49 @@
+{
+  "LAD": {
+    "accuracy": 0.7869,
+    "precision": 0.7949,
+    "recall": 0.8611,
+    "f1_score": 0.8267,
+    "roc_auc": 0.8056,
+    "best_params": {
+      "learning_rate": 0.1,
+      "max_depth": 7,
+      "n_estimators": 300
+    },
+    "best_cv_score": 0.8207
+  },
+  "LCX": {
+    "accuracy": 0.6557,
+    "precision": 0.5556,
+    "recall": 0.4348,
+    "f1_score": 0.4878,
+    "roc_auc": 0.5904,
+    "best_params": {
+      "learning_rate": 0.2,
+      "max_depth": 3,
+      "n_estimators": 100
+    },
+    "best_cv_score": 0.7953
+  },
+  "RCA": {
+    "accuracy": 0.623,
+    "precision": 0.5238,
+    "recall": 0.4583,
+    "f1_score": 0.4889,
+    "roc_auc": 0.6464,
+    "best_params": {
+      "learning_rate": 0.1,
+      "max_depth": 7,
+      "n_estimators": 300
+    },
+    "best_cv_score": 0.7212
+  },
+  "CAD_derived": {
+    "accuracy": 0.8525,
+    "precision": 0.8889,
+    "recall": 0.9091,
+    "f1_score": 0.8989,
+    "roc_auc": 0.9519,
+    "note": "Derived from vessel probabilities: P(CAD) = 1 - (1-P_LAD)(1-P_LCX)(1-P_RCA)"
+  }
+}
