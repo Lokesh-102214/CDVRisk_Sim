@@ -18,10 +18,32 @@ function LoadingFallback() {
 export default function HeartViewer({ predictions, selectedVessel, onVesselClick }) {
   return (
     <div className="canvas-container w-full h-full min-h-[400px] rounded-xl overflow-hidden relative">
-      <Canvas camera={{ position: [0, 0, 0.6], fov: 45 }} dpr={[1, 2]}>
-        <ambientLight intensity={0.6} />
-        <directionalLight position={[5, 5, 5]} intensity={0.8} />
-        <directionalLight position={[-3, -3, 3]} intensity={0.3} />
+      <Canvas
+        camera={{
+          position: [0, 0, 1.2],
+          fov: 45
+        }}
+        dpr={[1, 2]}
+        shadows
+      >
+        {/* Environment lighting */}
+        <Environment preset="studio" />
+
+        {/* Key light */}
+        <directionalLight
+          position={[5, 5, 5]}
+          intensity={1.5}
+          castShadow
+        />
+
+        {/* Fill light */}
+        <directionalLight
+          position={[-4, 2, 3]}
+          intensity={0.5}
+        />
+
+        <ambientLight intensity={0.2} />
+
         <Suspense fallback={<LoadingFallback />}>
           <HeartModel
             predictions={predictions}
@@ -29,6 +51,7 @@ export default function HeartViewer({ predictions, selectedVessel, onVesselClick
             onVesselClick={onVesselClick}
           />
         </Suspense>
+
         <OrbitControls
           enablePan={true}
           enableZoom={true}

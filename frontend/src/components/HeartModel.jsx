@@ -91,21 +91,7 @@ export default function HeartModel({ predictions, selectedVessel, onVesselClick 
   const { scene } = useGLTF('/heart_model/scene.gltf');
   const [hoveredVessel, setHoveredVessel] = useState(null);
 
-  // Make the heart body semi-transparent
-  useMemo(() => {
-    scene.traverse((child) => {
-      if (child.isMesh) {
-        child.material = new THREE.MeshStandardMaterial({
-          color: 0xe8a0a0,
-          transparent: true,
-          opacity: 0.55,
-          roughness: 0.6,
-          metalness: 0.1,
-          side: THREE.DoubleSide,
-        });
-      }
-    });
-  }, [scene]);
+
 
   // Extract probabilities
   const vesselProbs = useMemo(() => {
