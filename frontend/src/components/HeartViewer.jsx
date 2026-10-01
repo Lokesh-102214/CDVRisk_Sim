@@ -59,13 +59,7 @@ export default function HeartViewer({ predictions, selectedVessel, onVesselClick
         />
       </Canvas>
 
-      {/* Developer Instructions */}
-      <div className="absolute top-3 left-3 right-3 text-xs text-amber-300 bg-slate-900/90 border border-amber-500/30 px-4 py-3 rounded-lg shadow-xl pointer-events-none text-center font-medium">
-        DEVELOPER MODE: Click along the heart's surface where the arteries should be.<br/>
-        Check the Developer Console (F12) to see and copy the exact coordinate arrays!
-      </div>
-      
-      <div className="absolute bottom-3 left-3 text-xs text-slate-400 bg-slate-900/70 px-3 py-1.5 rounded-lg pointer-events-none select-none">
+      <div className="absolute bottom-3 left-3 text-xs text-slate-400 bg-slate-900/70 px-3 py-1.5 rounded-lg pointer-events-none select-none border border-slate-700/50">
         🖱 Drag to rotate • Scroll to zoom
       </div>
     </div>

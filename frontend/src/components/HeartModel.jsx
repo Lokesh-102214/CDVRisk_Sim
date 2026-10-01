@@ -103,45 +103,10 @@ export default function HeartModel({ predictions, selectedVessel, onVesselClick 
     return normalizeVesselPredictions(predictions?.vessels);
   }, [predictions]);
 
-  // Coordinate Picker (Development Tool)
-  const handleModelClick = (e) => {
-    e.stopPropagation();
-    
-    // Get intersection point and face normal
-    const intersection = e.intersections?.[0];
-    if (!intersection) return;
-
-    const point = intersection.point.clone();
-    const normal = intersection.face?.normal?.clone() || new THREE.Vector3(0, 0, 1);
-    
-    // Convert normal to world space
-    const normalMatrix = new THREE.Matrix3().getNormalMatrix(intersection.object.matrixWorld);
-    const worldNormal = normal.applyMatrix3(normalMatrix).normalize();
-    
-    // Add offset in world space to avoid z-fighting
-    const offsetWorldPoint = point.add(worldNormal.multiplyScalar(0.015));
-    
-    // Convert back to local space of the scene
-    const localPoint = scene.worldToLocal(offsetWorldPoint);
-    
-    console.log(
-      `[${localPoint.x.toFixed(4)}, ${localPoint.y.toFixed(4)}, ${localPoint.z.toFixed(4)}],`
-    );
-  };
-
   return (
     <group scale={3}>
       <primitive 
         object={scene}
-        onClick={handleModelClick}
-        onPointerOver={(e) => {
-          e.stopPropagation();
-          document.body.style.cursor = 'crosshair';
-        }}
-        onPointerOut={(e) => {
-          e.stopPropagation();
-          document.body.style.cursor = 'auto';
-        }}
       />
       {Object.entries(CORONARY_PATHS).map(([name, points]) => (
         <ArteryTube
