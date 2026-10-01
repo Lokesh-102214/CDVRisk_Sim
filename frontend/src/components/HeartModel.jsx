@@ -1,9 +1,6 @@
 /**
  * HeartModel — Loads the GLTF heart model and overlays programmatic coronary arteries.
  * Arteries (LAD, LCX, RCA) are rendered as TubeGeometry with dynamic coloring.
- *
- * Uses centralized config from config/vessels.js for paths and vessel info.
- * Geometry is created once; only material colors update on prediction change.
  */
 import { useRef, useMemo, useState } from 'react';
 import { useGLTF, Html } from '@react-three/drei';
@@ -14,17 +11,18 @@ import { CORONARY_PATHS, VESSELS, normalizeVesselPredictions } from '../config/v
 function ArteryTube({ name, points, probability, isSelected, isHovered, onPointerOver, onPointerOut, onClick }) {
   const meshRef = useRef();
 
-  // Geometry: created once, not rebuilt on prediction change
   const curve = useMemo(() => {
+    if (!points || points.length < 2) return null;
     const vectors = points.map((p) => new THREE.Vector3(p[0], p[1], p[2]));
     return new THREE.CatmullRomCurve3(vectors);
   }, [points]);
 
-  // Color: cheap update, only recalculates on probability change
   const color = useMemo(() => {
     if (probability === null || probability === undefined) return 0xaaaaaa;
     return probabilityToHex(probability);
   }, [probability]);
+
+  if (!curve) return null;
 
   const baseRadius = 0.0015;
   const radius = isSelected ? baseRadius * 1.5 : isHovered ? baseRadius * 1.25 : baseRadius;
@@ -97,17 +95,54 @@ function ArteryTube({ name, points, probability, isSelected, isHovered, onPointe
 }
 
 export default function HeartModel({ predictions, selectedVessel, onVesselClick }) {
+  // Uses the local GLTF model from public/heart_model/
   const { scene } = useGLTF('/heart_model/scene.gltf');
   const [hoveredVessel, setHoveredVessel] = useState(null);
 
-  // Normalize predictions using centralized utility
   const vesselProbs = useMemo(() => {
     return normalizeVesselPredictions(predictions?.vessels);
   }, [predictions]);
 
+  // Coordinate Picker (Development Tool)
+  const handleModelClick = (e) => {
+    e.stopPropagation();
+    
+    // Get intersection point and face normal
+    const intersection = e.intersections?.[0];
+    if (!intersection) return;
+
+    const point = intersection.point.clone();
+    const normal = intersection.face?.normal?.clone() || new THREE.Vector3(0, 0, 1);
+    
+    // Convert normal to world space
+    const normalMatrix = new THREE.Matrix3().getNormalMatrix(intersection.object.matrixWorld);
+    const worldNormal = normal.applyMatrix3(normalMatrix).normalize();
+    
+    // Add offset in world space to avoid z-fighting
+    const offsetWorldPoint = point.add(worldNormal.multiplyScalar(0.015));
+    
+    // Convert back to local space of the scene
+    const localPoint = scene.worldToLocal(offsetWorldPoint);
+    
+    console.log(
+      `[${localPoint.x.toFixed(4)}, ${localPoint.y.toFixed(4)}, ${localPoint.z.toFixed(4)}],`
+    );
+  };
+
   return (
     <group scale={3}>
-      <primitive object={scene} />
+      <primitive 
+        object={scene}
+        onClick={handleModelClick}
+        onPointerOver={(e) => {
+          e.stopPropagation();
+          document.body.style.cursor = 'crosshair';
+        }}
+        onPointerOut={(e) => {
+          e.stopPropagation();
+          document.body.style.cursor = 'auto';
+        }}
+      />
       {Object.entries(CORONARY_PATHS).map(([name, points]) => (
         <ArteryTube
           key={name}
