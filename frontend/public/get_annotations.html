@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Extract Annotations</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    #output { white-space: pre-wrap; background: #f4f4f4; padding: 15px; border-radius: 5px; }
+    iframe { width: 400px; height: 300px; border: 1px solid #ccc; mb-4; }
+  </style>
+</head>
+<body>
+  <h1>Sketchfab Annotation Extractor</h1>
+  <p>Fetching annotations for the heart model...</p>
+  
+  <iframe
+    id="api-frame"
+    src="https://sketchfab.com/models/a3f0ea2030214a6bbaa97e7357eebd58/embed"
+    allow="autoplay; fullscreen"
+    frameborder="0"
+  ></iframe>
+
+  <h2>Extracted Annotations:</h2>
+  <pre id="output">Loading...</pre>
+
+  <script src="https://static.sketchfab.com/api/sketchfab-viewer-1.12.1.js"></script>
+  <script>
+    const iframe = document.getElementById('api-frame');
+    const output = document.getElementById('output');
+    const uid = 'a3f0ea2030214a6bbaa97e7357eebd58';
+    
+    const client = new Sketchfab(iframe);
+    
+    client.init(uid, {
+      success: function(api) {
+        api.start();
+        api.addEventListener('viewerready', function() {
+          api.getAnnotationList(function(err, annotations) {
+            if (err) {
+              console.error(err);
+              output.textContent = "Error: " + err;
+              return;
+            }
+            
+            const relevantData = annotations.map(a => ({
+              index: a.index,
+              title: a.name || a.title,
+              content: a.content,
+              position: a.position,
+              eye: a.eye
+            }));
+            
+            output.textContent = JSON.stringify(relevantData, null, 2);
+            console.log('ANNOTATIONS:', annotations);
+          });
+        });
+      },
+      error: function(err) {
+        output.textContent = "Sketchfab API error: " + err;
+      }
+    });
+  </script>
+</body>
+</html>

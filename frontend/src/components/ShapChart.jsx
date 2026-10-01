@@ -1,7 +1,9 @@
 /**
  * ShapChart — Horizontal bar chart showing SHAP feature importances.
+ * Uses Lucide icons for tab headers.
  */
 import { useState } from 'react';
+import { Search } from 'lucide-react';
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, Cell, ResponsiveContainer, ReferenceLine,
 } from 'recharts';
@@ -12,7 +14,7 @@ function CustomTooltip({ active, payload }) {
   if (!active || !payload?.[0]) return null;
   const d = payload[0].payload;
   return (
-    <div className="bg-slate-800 border border-slate-600 p-2 rounded-lg text-xs">
+    <div className="bg-slate-800 border border-slate-600 p-2.5 rounded-lg text-xs shadow-xl">
       <p className="font-semibold text-white">{d.feature}</p>
       <p className="text-slate-300">Patient value: <span className="font-mono">{d.displayValue}</span></p>
       <p style={{ color: d.shap_value > 0 ? '#ef4444' : '#22c55e' }}>
@@ -37,8 +39,9 @@ export default function ShapChart({ shapLad, shapLcx, shapRca }) {
 
   return (
     <div className="bg-slate-800/60 rounded-xl p-4 border border-slate-700">
-      <h3 className="text-sm font-semibold text-white mb-3">
-        🔍 SHAP Feature Importance
+      <h3 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
+        <Search size={14} className="text-teal-400" />
+        SHAP Feature Importance
       </h3>
 
       {/* Tabs */}
@@ -47,7 +50,7 @@ export default function ShapChart({ shapLad, shapLcx, shapRca }) {
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`px-3 py-1 rounded-md text-xs font-medium transition-colors ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 ${
               activeTab === tab
                 ? 'bg-teal-500/20 text-teal-400 border border-teal-500/50'
                 : 'bg-slate-700/50 text-slate-400 hover:text-slate-200 border border-transparent'
@@ -58,7 +61,7 @@ export default function ShapChart({ shapLad, shapLcx, shapRca }) {
         ))}
       </div>
 
-      <p className="text-xs text-slate-400 mb-2">
+      <p className="text-[11px] text-slate-400 mb-2">
         <span className="text-red-400">Red</span> = pushes toward stenosis •{' '}
         <span className="text-green-400">Green</span> = pushes toward normal
       </p>

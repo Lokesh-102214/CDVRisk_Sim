@@ -1,0 +1,342 @@
+[
+  {
+    "title": "Ascending Aorta",
+    "content": {
+      "raw": "The first part of the aorta. Originates from the aortic orifice at the base of the left ventricle. Together with the aortic arch and descending aorta, it carries oxygenated blood to the body. The aortic arch gives off three branches: the brachiocephalic trunk, left common carotid artery and left subclavian artery, which altogether supply blood t",
+      "rendered": "<p>The first part of the aorta. Originates from the aortic orifice at the base of the left ventricle. Together with the aortic arch and descending aorta, it carries oxygenated blood to the body. The aortic arch gives off three branches: the brachiocephalic trunk, left common carotid artery and left subclavian artery, which altogether supply blood t</p>"
+    },
+    "position": [
+      0.08508526437789589,
+      -0.16036335939257407,
+      0.3281038461716874
+    ],
+    "eye": [
+      -14.1695327503,
+      -60.7332914473,
+      24.029996349
+    ]
+  },
+  {
+    "title": "Ligamentum Arteriosum",
+    "content": {
+      "raw": "A non-functional vestigial remnant of the ductus arteriosus, a blood vessel connecting the pulmonary trunk with the aortic arch, allowing blood to bypass the lungs during embryonic development. The vessel closes soon after birth, forming this ligamentous connection.",
+      "rendered": "<p>A non-functional vestigial remnant of the ductus arteriosus, a blood vessel connecting the pulmonary trunk with the aortic arch, allowing blood to bypass the lungs during embryonic development. The vessel closes soon after birth, forming this ligamentous connection.</p>"
+    },
+    "position": [
+      0.27285687964635075,
+      0.04837882970841356,
+      0.3610641468239272
+    ],
+    "eye": [
+      26.753609884916727,
+      -63.330727287004194,
+      75.91530797701509
+    ]
+  },
+  {
+    "title": "Pulmonary Trunk",
+    "content": {
+      "raw": "Carries  deoxygenated blood from the right ventricle to the lungs (via the left and right pulmonary arteries)",
+      "rendered": "<p>Carries  deoxygenated blood from the right ventricle to the lungs (via the left and right pulmonary arteries)</p>"
+    },
+    "position": [
+      0.27502088040656264,
+      -0.05526585024858651,
+      0.32607506939414543
+    ],
+    "eye": [
+      6.382912653980374,
+      -32.90276907714171,
+      44.341114050137485
+    ]
+  },
+  {
+    "title": "Left Auricle",
+    "content": {
+      "raw": "The left auricle comes from the left wall of the left atrium and is a remnant of the embryonic left atrium.",
+      "rendered": "<p>The left auricle comes from the left wall of the left atrium and is a remnant of the embryonic left atrium.</p>"
+    },
+    "position": [
+      0.332230224443837,
+      -0.009905507437994333,
+      0.09303287383175286
+    ],
+    "eye": [
+      50.18380202357055,
+      -28.322178742831017,
+      14.486128552474211
+    ]
+  },
+  {
+    "title": "Left Atrium",
+    "content": {
+      "raw": "Forms most of the posterior surface of the heart. It receives oxygenated blood from the lungs through the left and right pulmonary veins, passing it on to the left ventricle via the mitral valve during atrial systole.",
+      "rendered": "<p>Forms most of the posterior surface of the heart. It receives oxygenated blood from the lungs through the left and right pulmonary veins, passing it on to the left ventricle via the mitral valve during atrial systole.</p>"
+    },
+    "position": [
+      0.09859221210006816,
+      0.17041402564297947,
+      -0.057191486632003186
+    ],
+    "eye": [
+      32.539142304024196,
+      96.74446332318449,
+      -1.3387121933179722
+    ]
+  },
+  {
+    "title": "Left Superior and Inferior Pulmonary Veins",
+    "content": {
+      "raw": "Receives oxygenated blood from the superior and inferior lobes of the left lung, passing it on to the left atrium.",
+      "rendered": "<p>Receives oxygenated blood from the superior and inferior lobes of the left lung, passing it on to the left atrium.</p>"
+    },
+    "position": [
+      0.28807147221104934,
+      0.13993399418935443,
+      -0.030120282897583776
+    ],
+    "eye": [
+      67.69573831320824,
+      76.42582936446514,
+      3.771230556287405
+    ]
+  },
+  {
+    "title": "Right Superior and Inferior Pulmonary Veins",
+    "content": {
+      "raw": "Receives oxygenated blood from the superior, middle and inferior lobes of the right lung, passing it on to the left atrium.",
+      "rendered": "<p>Receives oxygenated blood from the superior, middle and inferior lobes of the right lung, passing it on to the left atrium.</p>"
+    },
+    "position": [
+      -0.09659372819053315,
+      0.1458900064380451,
+      -0.0323737521645583
+    ],
+    "eye": [
+      13.189309246767014,
+      101.1201053411655,
+      3.802662522523793
+    ]
+  },
+  {
+    "title": "Right Atrium",
+    "content": {
+      "raw": "Receives deoxygenated blood from the body via the superior and  inferior vena cava. It passes the blood on to the right ventricle via the tricuspid valve during atrial systole.",
+      "rendered": "<p>Receives deoxygenated blood from the body via the superior and  inferior vena cava. It passes the blood on to the right ventricle via the tricuspid valve during atrial systole.</p>"
+    },
+    "position": [
+      -0.1904807413535894,
+      -0.05246078462336641,
+      -0.12636695332798029
+    ],
+    "eye": [
+      -75.5841711187767,
+      28.22168743311042,
+      -11.6126202413856
+    ]
+  },
+  {
+    "title": "Right Auricle",
+    "content": {
+      "raw": "The right auricle comes from the right atrium and is a remnant of the embryonic right atrium.",
+      "rendered": "<p>The right auricle comes from the right atrium and is a remnant of the embryonic right atrium.</p>"
+    },
+    "position": [
+      -0.12569692983836778,
+      -0.19053844456118513,
+      0.16720203637949538
+    ],
+    "eye": [
+      -93.52455301553519,
+      6.301156791607418,
+      40.50789902616931
+    ]
+  },
+  {
+    "title": "Inferior Vena Cava",
+    "content": {
+      "raw": "The inferior vena cava delivers deoxygenated blood from the lower and middle body to the right atrium.",
+      "rendered": "<p>The inferior vena cava delivers deoxygenated blood from the lower and middle body to the right atrium.</p>"
+    },
+    "position": [
+      -0.14418186712386732,
+      -0.07766721504106483,
+      -0.42453469799842714
+    ],
+    "eye": [
+      -93.52721585440244,
+      40.4187372517252,
+      -5.380388995020503
+    ]
+  },
+  {
+    "title": "Superior Vena Cava",
+    "content": {
+      "raw": "It begins where the left and right brachiocephalic veins unite. It delivers deoxygenated blood from the thoracic cavity, head, neck and upper limbs to the right atrium.",
+      "rendered": "<p>It begins where the left and right brachiocephalic veins unite. It delivers deoxygenated blood from the thoracic cavity, head, neck and upper limbs to the right atrium.</p>"
+    },
+    "position": [
+      -0.08051384450591133,
+      -0.004568782371385121,
+      0.40275292005125796
+    ],
+    "eye": [
+      -58.44248491476928,
+      -77.28368403128108,
+      32.887279881401305
+    ]
+  },
+  {
+    "title": "Right Ventricle",
+    "content": {
+      "raw": "The right ventricle fills with deoxygenated blood from the right atrium during ventricular diastole, when its muscle walls are relaxed. As the right ventricle contracts, ventricular systole, it forces the deoxygenated blood through the pulmonary valve and into the pulmonary trunk.",
+      "rendered": "<p>The right ventricle fills with deoxygenated blood from the right atrium during ventricular diastole, when its muscle walls are relaxed. As the right ventricle contracts, ventricular systole, it forces the deoxygenated blood through the pulmonary valve and into the pulmonary trunk.</p>"
+    },
+    "position": [
+      0.04341924946229208,
+      -0.6295853112129862,
+      -0.1318668849675993
+    ],
+    "eye": [
+      4.112777796812117,
+      -95.90948014943797,
+      35.75361083263108
+    ]
+  },
+  {
+    "title": "Left Ventricle",
+    "content": {
+      "raw": "The left ventricle fills with oxygenated blood from the left atrium during ventricular diastole, when its muscle walls are relaxed. As the left ventricle contracts, ventricular systole, it forces the oxygenated blood through the aortic valve and into the ascending aorta.",
+      "rendered": "<p>The left ventricle fills with oxygenated blood from the left atrium during ventricular diastole, when its muscle walls are relaxed. As the left ventricle contracts, ventricular systole, it forces the oxygenated blood through the aortic valve and into the ascending aorta.</p>"
+    },
+    "position": [
+      0.3779762019042259,
+      -0.3553407134080059,
+      -0.4621615569887685
+    ],
+    "eye": [
+      53.02104293976333,
+      54.33156853705336,
+      -68.36790449549437
+    ]
+  },
+  {
+    "title": "Right Coronary Artery",
+    "content": {
+      "raw": "The right coronary artery originates from the right aortic sinus of the ascending aorta. Along its course, it gives rise to several branches: atrial branch, conus branch, ventricular branches, right marginal branch, posterior interventricular and right posterolateral branch.",
+      "rendered": "<p>The right coronary artery originates from the right aortic sinus of the ascending aorta. Along its course, it gives rise to several branches: atrial branch, conus branch, ventricular branches, right marginal branch, posterior interventricular and right posterolateral branch.</p>"
+    },
+    "position": [
+      -0.08770446235290894,
+      -0.3188565198440542,
+      0.09258853607763132
+    ],
+    "eye": [
+      2.466230623129791,
+      -3.0382767428985438,
+      43.51691736500667
+    ]
+  },
+  {
+    "title": "Left Coronary Artery",
+    "content": {
+      "raw": "The left coronary artery originates from the left aortic sinus of the ascending aorta. The artery divides into its two terminal branches: the anterior interventricular branch and the circumflex branch.",
+      "rendered": "<p>The left coronary artery originates from the left aortic sinus of the ascending aorta. The artery divides into its two terminal branches: the anterior interventricular branch and the circumflex branch.</p>"
+    },
+    "position": [
+      0.2952827521980628,
+      -0.08426246597541054,
+      0.15981067912460983
+    ],
+    "eye": [
+      61.27780462733365,
+      -29.230008050677462,
+      75.51486520235967
+    ]
+  },
+  {
+    "title": "Coronary Sinus",
+    "content": {
+      "raw": "The coronary sinus receives blood from four major tributaries: the great cardiac vein, middle cardiac vein, small cardiac vein and posterior cardiac vein. The coronary sinus then drains into the right atrium, near the opening of the inferior vena cava.",
+      "rendered": "<p>The coronary sinus receives blood from four major tributaries: the great cardiac vein, middle cardiac vein, small cardiac vein and posterior cardiac vein. The coronary sinus then drains into the right atrium, near the opening of the inferior vena cava.</p>"
+    },
+    "position": [
+      0.1156862132430722,
+      -0.002709348825158798,
+      -0.32312622735061397
+    ],
+    "eye": [
+      -17.702333907217604,
+      28.334546790996143,
+      -57.55114182096676
+    ]
+  },
+  {
+    "title": "Great Cardiac Vein",
+    "content": {
+      "raw": "",
+      "rendered": ""
+    },
+    "position": [
+      0.3037301842959335,
+      0.012460053743057427,
+      -0.11874414158210524
+    ],
+    "eye": [
+      96.77301564063777,
+      79.03876859986521,
+      -13.828418181189528
+    ]
+  },
+  {
+    "title": "Middle Cardiac Vein",
+    "content": {
+      "raw": "",
+      "rendered": ""
+    },
+    "position": [
+      0.05937715615916756,
+      -0.20481080151469588,
+      -0.43289900242368107
+    ],
+    "eye": [
+      1.729273064419059,
+      -0.06363184237172911,
+      -102.17854268932014
+    ]
+  },
+  {
+    "title": "Small Cardiac Vein",
+    "content": {
+      "raw": "",
+      "rendered": ""
+    },
+    "position": [
+      -0.09545841831171291,
+      -0.39974173799248747,
+      -0.36384991129435423
+    ],
+    "eye": [
+      -91.7556306006618,
+      -26.483599377303843,
+      -33.79330658435039
+    ]
+  },
+  {
+    "title": "Posterior Cardiac Vein",
+    "content": {
+      "raw": "",
+      "rendered": ""
+    },
+    "position": [
+      0.3343165163602777,
+      -0.11750640777622014,
+      -0.3543708380557144
+    ],
+    "eye": [
+      45.85565443914214,
+      39.64758853819583,
+      -81.19643105004684
+    ]
+  }
+]

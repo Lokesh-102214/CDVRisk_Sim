@@ -1,0 +1,305 @@
+{
+  "uid": "a3f0ea2030214a6bbaa97e7357eebd58",
+  "slug": "cardiac-anatomy-external-view-of-human-heart",
+  "user": {
+    "account": "basic",
+    "avatars": {
+      "uid": "9c1eae0d8c1646069abcb893043fd597",
+      "images": [
+        {
+          "width": 32,
+          "height": 32,
+          "size": 714,
+          "url": "https://media.sketchfab.com/avatars/9c1eae0d8c1646069abcb893043fd597/1c22d28302a34c4ba603fa0501d66b7f.jpeg"
+        },
+        {
+          "width": 48,
+          "height": 48,
+          "size": 1074,
+          "url": "https://media.sketchfab.com/avatars/9c1eae0d8c1646069abcb893043fd597/7bd0d05d7765454aa01aa8b87ddae46a.jpeg"
+        },
+        {
+          "width": 90,
+          "height": 90,
+          "size": 2404,
+          "url": "https://media.sketchfab.com/avatars/9c1eae0d8c1646069abcb893043fd597/9e8f46ba5f3248d284dc7ad655c0453b.jpeg"
+        },
+        {
+          "width": 100,
+          "height": 100,
+          "size": 2796,
+          "url": "https://media.sketchfab.com/avatars/9c1eae0d8c1646069abcb893043fd597/43aa78b16380492fa9c6c97179560d69.jpeg"
+        }
+      ]
+    },
+    "displayName": "HannahNewey",
+    "isAiRestricted": false,
+    "traderSettings": {
+      "isTrader": null,
+      "isVerifiedTrader": false
+    },
+    "planDetail": null,
+    "profileUrl": "https://sketchfab.com/HannahNewey",
+    "uid": "b9b60ec4d583425fa6cbe4399eaaf748",
+    "username": "HannahNewey"
+  },
+  "name": "Cardiac Anatomy: External view of human heart",
+  "description": "This model shows the external anatomy of the human heart.  The annotations reflect general features of the heart, with 3D models on coronary vasculature of the heart soon to come.\n\n\nThe model was created from scratch in ZBrush as part of my MSc Medical Art course at the University of Dundee.  It is part of a educational resource project to aid students' learning in the vasculature of the heart, where a 3D printed model has also been created to be used as a comparison for Dundee University's Thiel Cadaver Facility, where the hearts can become quite flat during embalming. \n\n\nThe project is in collaboration with Mr. Luke Reid, Lecturer in Human Anatomy at the University of Dundee, who confirmed anatomical accuracy of the model. Credit also goes to 3D4medical as my main source of reference and inspiration.",
+  "htmlDescription": "<p>This model shows the external anatomy of the human heart.  The annotations reflect general features of the heart, with 3D models on coronary vasculature of the heart soon to come.</p>\n<p>The model was created from scratch in ZBrush as part of my MSc Medical Art course at the University of Dundee.  It is part of a educational resource project to aid students&rsquo; learning in the vasculature of the heart, where a 3D printed model has also been created to be used as a comparison for Dundee University&rsquo;s Thiel Cadaver Facility, where the hearts can become quite flat during embalming. </p>\n<p>The project is in collaboration with Mr. Luke Reid, Lecturer in Human Anatomy at the University of Dundee, who confirmed anatomical accuracy of the model. Credit also goes to 3D4medical as my main source of reference and inspiration.</p>",
+  "thumbnails": {
+    "uid": "eb6f44b967e44728b77d7197afcacb43",
+    "images": [
+      {
+        "uid": "d4856ebe6a44437fa5934dc40096d0ac",
+        "width": 1920,
+        "height": 1080,
+        "size": 112597,
+        "url": "https://media.sketchfab.com/models/a3f0ea2030214a6bbaa97e7357eebd58/thumbnails/eb6f44b967e44728b77d7197afcacb43/72810e03efc34f498e1240edc69e0544.jpeg"
+      },
+      {
+        "uid": "3b0a0e86ba094084bbba163004ab7c80",
+        "width": 1024,
+        "height": 576,
+        "size": 41844,
+        "url": "https://media.sketchfab.com/models/a3f0ea2030214a6bbaa97e7357eebd58/thumbnails/eb6f44b967e44728b77d7197afcacb43/09005a2c198547688ec7ff75521af142.jpeg"
+      },
+      {
+        "uid": "57a1cce42c0b45cd80ff4bf60b88f59d",
+        "width": 720,
+        "height": 405,
+        "size": 25724,
+        "url": "https://media.sketchfab.com/models/a3f0ea2030214a6bbaa97e7357eebd58/thumbnails/eb6f44b967e44728b77d7197afcacb43/716877a83e28446d9658a5957c027052.jpeg"
+      },
+      {
+        "uid": "5d0d078e87584652a3dd04b359f73cdd",
+        "width": 256,
+        "height": 144,
+        "size": 5508,
+        "url": "https://media.sketchfab.com/models/a3f0ea2030214a6bbaa97e7357eebd58/thumbnails/eb6f44b967e44728b77d7197afcacb43/dcc0bbbac46b460ab3451cfcdd8cefc2.jpeg"
+      },
+      {
+        "uid": "eac8300d332d46479cc7aa0d796715c1",
+        "width": 64,
+        "height": 36,
+        "size": 986,
+        "url": "https://media.sketchfab.com/models/a3f0ea2030214a6bbaa97e7357eebd58/thumbnails/eb6f44b967e44728b77d7197afcacb43/7f5b723b663c443b9b17f98d5a039b36.jpeg"
+      }
+    ]
+  },
+  "vertexCount": 1507729,
+  "faceCount": 3003486,
+  "viewCount": 270027,
+  "likeCount": 182,
+  "animationCount": 0,
+  "staffpickedAt": null,
+  "publishedAt": "2018-04-19T22:20:43.945958",
+  "createdAt": "2018-04-19T22:13:50.032441",
+  "tags": [
+    "anatomy",
+    "heart",
+    "education",
+    "science",
+    "medicine",
+    "educational",
+    "humananatomy",
+    "medicalillustration",
+    "anatomy-reference",
+    "medical_model",
+    "cardiology",
+    "cardiac",
+    "medicalart",
+    "cardiac_anatomy",
+    "medicalartist",
+    "medicalmodel"
+  ],
+  "orgTags": [],
+  "categories": [
+    {
+      "uid": "e56c5de1e9344241909de76c5886f551",
+      "name": "Art & Abstract",
+      "slug": "art-abstract"
+    },
+    {
+      "uid": "17d20ca7b35243d4a45171838b50704c",
+      "name": "Science & Technology",
+      "slug": "science-technology"
+    }
+  ],
+  "license": {
+    "uid": "2628dbe5140a4e9592126c8df566c0b7",
+    "label": "CC Attribution-NonCommercial-ShareAlike",
+    "fullname": "CC Attribution-NonCommercial-ShareAlike",
+    "slug": "by-nc-sa",
+    "summary": "Share with credit, under the same conditions, no commercial use",
+    "requirements": "Author must be credited. No commercial use. Modified versions must have the same license.",
+    "url": "http://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "free": true,
+    "isCc": true,
+    "needsAttribution": true,
+    "ccClauses": [
+      "Attribution",
+      "NonCommercial",
+      "ShareAlike"
+    ]
+  },
+  "isStoreLicenseLocked": false,
+  "viewerUrl": "https://sketchfab.com/3d-models/cardiac-anatomy-external-view-of-human-heart-a3f0ea2030214a6bbaa97e7357eebd58",
+  "embedUrl": "https://sketchfab.com/models/a3f0ea2030214a6bbaa97e7357eebd58/embed",
+  "editorUrl": "https://sketchfab.com/models/a3f0ea2030214a6bbaa97e7357eebd58/edit",
+  "reviewUrl": "https://sketchfab.com/models/a3f0ea2030214a6bbaa97e7357eebd58/review",
+  "publicCommentCount": 10,
+  "orgCommentCount": 0,
+  "downloadType": "free",
+  "isInspectable": true,
+  "hasPromotionalContent": false,
+  "downloadCount": 7298,
+  "status": {
+    "processing": "SUCCEEDED"
+  },
+  "isPublished": true,
+  "originalFileName": "archive",
+  "processingStatus": 2,
+  "archiveSize": 50708588,
+  "ext": "obj",
+  "isDeleted": false,
+  "isRestricted": false,
+  "processedAt": "2018-04-19T22:20:43.877549",
+  "files": [
+    {
+      "uid": "eebb2e37cb4b4a50a0a91bc2d697b5e7",
+      "flag": 0,
+      "osgjsUrl": "https://media.sketchfab.com/models/a3f0ea2030214a6bbaa97e7357eebd58/006a7f529b824eb89f0efe954bf6c1f1/files/eebb2e37cb4b4a50a0a91bc2d697b5e7/file.binz",
+      "modelSize": 21422056,
+      "osgjsSize": 19762,
+      "wireframeSize": 9428183,
+      "p": [
+        {
+          "v": 1,
+          "b": "mXriPxLaIt+vbnWCYlaokqFwsnP2U4aB7n8mpHYtP2XYGgJ36+GVOTWCyLCERJEE2s1AkZ9vO9gG\n9m3mXQS8IM9ld50EhxrZUm6ZAjUANQA7ABtlnOB6q5Jnt//fkpD/StggRwmZPyP0/4f+OEo5OToW\ntLWVLaCURq3hSh7d2rBA0AIuEgp0nXkNOOhQQuvfktEf/9dWDa1QCFU4g7Mu+iaPyNTkaQ+Bmkbu\nnvV0q7NbcENmyVoYtxgbLhciGen/LskG+ldLh/wnUDFk/sxwin0o6FNs07CpC4rTqYsKJWdnRFJ1\nZ0Th4qxCDs1ZhTB9UAZmXgE0AfoGeiDTqAC2Y7brKduHL00RmCRGXWWqGpWAp6nk6W2UpAms289K\nYjwo2zys/BPb19+znwMaKKAqoMDuUAQ6UxUHIjCeWCysF45DsAlTZDU2ughp6WU4O5CGHlhccizk\nybL6oO+vixf16AYa9zwgrDw=",
+          "d": true
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "quad": 1459620,
+    "triangle": 84246,
+    "polygon": 0,
+    "line": 0,
+    "point": 0,
+    "totalTriangle": 3003486,
+    "vertexCount": 1507729,
+    "hasNormal": false,
+    "hasTangent": false,
+    "hasVertexColor": true,
+    "pbrType": null,
+    "textureCount": 1,
+    "materialCount": 1,
+    "isRigged": false,
+    "morph": 0,
+    "scale": false,
+    "animation": 0,
+    "uvMapped": true,
+    "sourceFiles": {
+      "3d": [
+        {
+          "version": "",
+          "filepath": "SubTool-0-7412864.OBJ",
+          "filesize": 186405655,
+          "extension": "obj",
+          "fileformat": "OBJ"
+        },
+        {
+          "version": "",
+          "filepath": "SubTool-0-7412864.mtl",
+          "filesize": 113,
+          "extension": "mtl",
+          "fileformat": "Alias/WaveFront Material"
+        }
+      ],
+      "misc": [
+        {
+          "filepath": "sketchfab.zbrush",
+          "filesize": 0,
+          "extension": "zbrush",
+          "fileformat": ""
+        }
+      ],
+      "count": 3,
+      "image": []
+    },
+    "textureFiles": []
+  },
+  "price": null,
+  "inStore": false,
+  "averageRating": 0,
+  "reviewCount": 0,
+  "preferOriginalNormalMap": false,
+  "isDisabled": false,
+  "hasCommentsDisabled": false,
+  "exporter": {
+    "name": "ZBrush",
+    "aliases": [
+      "zbrush-exporter"
+    ],
+    "key": "zbrush",
+    "link": "/exporters/zbrush",
+    "external": false
+  },
+  "displayStatus": "ok",
+  "version": {
+    "uid": "006a7f529b824eb89f0efe954bf6c1f1",
+    "status": {
+      "processing": "SUCCEEDED"
+    },
+    "isCurrentVersion": true,
+    "isCandidateVersion": false,
+    "createdAt": "2018-12-16T05:33:46.985227",
+    "processedAt": null,
+    "reason": "operation"
+  },
+  "visibility": "public",
+  "org": null,
+  "isAiGenerated": false,
+  "isArEnabled": false,
+  "isArAvailable": false,
+  "archivesStatus": [
+    {
+      "type": "source",
+      "exists": true,
+      "status": "Succeeded"
+    },
+    {
+      "type": "gltf",
+      "exists": true,
+      "status": "Succeeded"
+    },
+    {
+      "type": "extra",
+      "exists": false,
+      "status": null
+    },
+    {
+      "type": "usdz",
+      "exists": true,
+      "status": "Succeeded"
+    },
+    {
+      "type": "gltf-ar",
+      "exists": false,
+      "status": null
+    },
+    {
+      "type": "uasset",
+      "exists": false,
+      "status": null
+    },
+    {
+      "type": "glb",
+      "exists": true,
+      "status": "Succeeded"
+    }
+  ],
+  "mayDownloadThisModel": false,
+  "fabMigrationListingId": null
+}
