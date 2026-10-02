@@ -68,7 +68,7 @@ export default function HeartModel({ predictions, selectedVessel, onVesselClick 
     return normalizeVesselPredictions(predictions?.vessels);
   }, [predictions]);
 
-  // Determine the active probability governing Object 20
+  // Determine the active probability governing the highlighted objects
   const activeProb = useMemo(() => {
     if (selectedVessel && vesselProbs[selectedVessel] != null) {
       return vesselProbs[selectedVessel];
@@ -76,28 +76,35 @@ export default function HeartModel({ predictions, selectedVessel, onVesselClick 
     return predictions?.cad_probability || 0;
   }, [selectedVessel, vesselProbs, predictions]);
 
-  const [isObj20Clicked, setIsObj20Clicked] = useState(false);
-  const obj20 = useMemo(() => scene.getObjectByName('Object_20'), [scene]);
+  const [isHighlightMeshClicked, setIsHighlightMeshClicked] = useState(false);
+  const highlightObjects = useMemo(() => {
+    return [
+      scene.getObjectByName('Object_20'),
+      scene.getObjectByName('Object_21')
+    ].filter(Boolean);
+  }, [scene]);
   
   // Highlight when any pointer is selected or the object itself is clicked
-  const isHighlighted = selectedVessel !== null || isObj20Clicked;
+  const isHighlighted = selectedVessel !== null || isHighlightMeshClicked;
   
-  // Dynamically update the color of object 20 by increasing its dark shade
+  // Dynamically update the color of highlighted objects by increasing their dark shade
   // on a continuous scale based on stenosis predicted probability.
   useEffect(() => {
-    if (obj20 && obj20.material) {
-      if (isHighlighted) {
-        const baseColor = new THREE.Color(1, 1, 1);
-        const severeColor = new THREE.Color(0.1, 0.0, 0.0); // very dark necrotic red
-        
-        // Lerp from normal to dark based directly on probability [0, 1]
-        obj20.material.color = baseColor.lerp(severeColor, activeProb);
-        obj20.material.emissiveIntensity = 0; // Remove emissive glow to emphasize dark shade
-      } else {
-        obj20.material.color = new THREE.Color(1, 1, 1); // Reset
+    highlightObjects.forEach((obj) => {
+      if (obj && obj.material) {
+        if (isHighlighted) {
+          const baseColor = new THREE.Color(1, 1, 1);
+          const severeColor = new THREE.Color(0.1, 0.0, 0.0); // very dark necrotic red
+          
+          // Lerp from normal to dark based directly on probability [0, 1]
+          obj.material.color = baseColor.lerp(severeColor, activeProb);
+          obj.material.emissiveIntensity = 0; // Remove emissive glow to emphasize dark shade
+        } else {
+          obj.material.color = new THREE.Color(1, 1, 1); // Reset
+        }
       }
-    }
-  }, [isHighlighted, obj20, activeProb]);
+    });
+  }, [isHighlighted, highlightObjects, activeProb]);
 
   // Dynamic boundary outline color
   const outlineColor = useMemo(() => {
@@ -223,23 +230,23 @@ export default function HeartModel({ predictions, selectedVessel, onVesselClick 
         object={scene} 
         onClick={(e) => {
           e.stopPropagation();
-          if (e.object.name === 'Object_20') {
-            setIsObj20Clicked(true);
+          if (e.object.name === 'Object_20' || e.object.name === 'Object_21') {
+            setIsHighlightMeshClicked(true);
           } else {
-            setIsObj20Clicked(false);
+            setIsHighlightMeshClicked(false);
           }
         }}
         onPointerMissed={() => {
-          setIsObj20Clicked(false);
+          setIsHighlightMeshClicked(false);
           onVesselClick?.(null);
         }}
       />
       
-      {/* High-visibility boundary stroke via Outlines attached directly to Object_20 */}
-      {isHighlighted && obj20 && createPortal(
-        <Outlines thickness={0.015} color={outlineColor} transparent opacity={0.8} />,
-        obj20
-      )}
+      {/* High-visibility boundary stroke via Outlines attached directly to highlighted objects */}
+      {isHighlighted && highlightObjects.map(obj => createPortal(
+        <Outlines key={obj.name} thickness={0.015} color={outlineColor} transparent opacity={0.8} />,
+        obj
+      ))}
 
       {/* Dynamic Pointer Callouts */}
       {Object.entries(CORONARY_PATHS).map(([name, points]) => (
