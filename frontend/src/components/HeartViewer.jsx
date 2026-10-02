@@ -3,7 +3,7 @@
  */
 import { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Environment, AdaptiveDpr, AdaptiveEvents } from '@react-three/drei';
+import { OrbitControls, Environment } from '@react-three/drei';
 import HeartModel from './HeartModel';
 import { Loader2 } from 'lucide-react';
 
@@ -29,10 +29,7 @@ export default function HeartViewer({ predictions, selectedVessel, onVesselClick
         dpr={[1, 1.5]}
         shadows={false}
         flat
-        performance={{ min: 0.5 }}
       >
-        <AdaptiveDpr pixelated />
-        <AdaptiveEvents />
         <Environment preset="city" environmentIntensity={0.5} />
         <directionalLight position={[5, 5, 5]} intensity={0.6} />
         <directionalLight position={[-4, 2, 3]} intensity={0.2} />

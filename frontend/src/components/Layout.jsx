@@ -3,12 +3,10 @@
  * Provides sticky header with Lucide icons and responsive nav.
  */
 import { useState } from 'react';
-import { Link, useLocation, Outlet } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import {
   Heart,
   Activity,
-  LayoutDashboard,
-  UserRound,
   Info,
   Menu,
   X,
@@ -19,7 +17,7 @@ const NAV_ITEMS = [
   { path: '/about', label: 'About', icon: Info },
 ];
 
-export default function Layout() {
+export default function Layout({ children }) {
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -106,7 +104,7 @@ export default function Layout() {
 
       {/* ─── Page Content ─── */}
       <main className="max-w-[1600px] mx-auto">
-        <Outlet />
+        {children}
       </main>
     </div>
   );
