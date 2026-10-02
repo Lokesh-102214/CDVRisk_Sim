@@ -21,7 +21,7 @@ export default function HeartViewer({ predictions, selectedVessel, onVesselClick
     <div className="canvas-container w-full h-full min-h-[400px] rounded-xl overflow-hidden relative">
       <Canvas
         camera={{
-          position: [0, 0, 1.8],
+          position: [0, 0, 4.5],
           fov: 45,
           near: 0.01,
           far: 100,
