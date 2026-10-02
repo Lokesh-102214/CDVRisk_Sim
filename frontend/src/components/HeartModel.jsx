@@ -76,35 +76,32 @@ export default function HeartModel({ predictions, selectedVessel, onVesselClick 
     return predictions?.cad_probability || 0;
   }, [selectedVessel, vesselProbs, predictions]);
 
-  const [isHighlightMeshClicked, setIsHighlightMeshClicked] = useState(false);
-  const highlightObjects = useMemo(() => {
-    return [
-      scene.getObjectByName('Object_20'),
-      scene.getObjectByName('Object_21')
-    ].filter(Boolean);
-  }, [scene]);
+  const [isObjClicked, setIsObjClicked] = useState(false);
+  const obj20 = useMemo(() => scene.getObjectByName('Object_20'), [scene]);
+  const obj21 = useMemo(() => scene.getObjectByName('Object_21'), [scene]);
   
-  // Highlight when any pointer is selected or the object itself is clicked
-  const isHighlighted = selectedVessel !== null || isHighlightMeshClicked;
+  // Highlight when any pointer is selected or the objects themselves are clicked
+  const isHighlighted = selectedVessel !== null || isObjClicked;
   
-  // Dynamically update the color of highlighted objects by increasing their dark shade
+  // Dynamically update the color of object 20 & 21
   // on a continuous scale based on stenosis predicted probability.
   useEffect(() => {
-    highlightObjects.forEach((obj) => {
+    const objs = [obj20, obj21].filter(Boolean);
+    objs.forEach(obj => {
       if (obj && obj.material) {
         if (isHighlighted) {
           const baseColor = new THREE.Color(1, 1, 1);
-          const severeColor = new THREE.Color(0.1, 0.0, 0.0); // very dark necrotic red
+          const targetColor = new THREE.Color("#a3e635"); // yellowish-green shade
           
-          // Lerp from normal to dark based directly on probability [0, 1]
-          obj.material.color = baseColor.lerp(severeColor, activeProb);
-          obj.material.emissiveIntensity = 0; // Remove emissive glow to emphasize dark shade
+          // Lerp from normal to yellowish-green based directly on probability [0, 1]
+          obj.material.color = baseColor.lerp(targetColor, activeProb);
+          obj.material.emissiveIntensity = 0;
         } else {
           obj.material.color = new THREE.Color(1, 1, 1); // Reset
         }
       }
     });
-  }, [isHighlighted, highlightObjects, activeProb]);
+  }, [isHighlighted, obj20, obj21, activeProb]);
 
   // Dynamic boundary outline color
   const outlineColor = useMemo(() => {
@@ -231,21 +228,23 @@ export default function HeartModel({ predictions, selectedVessel, onVesselClick 
         onClick={(e) => {
           e.stopPropagation();
           if (e.object.name === 'Object_20' || e.object.name === 'Object_21') {
-            setIsHighlightMeshClicked(true);
+            setIsObjClicked(true);
           } else {
-            setIsHighlightMeshClicked(false);
+            setIsObjClicked(false);
           }
         }}
         onPointerMissed={() => {
-          setIsHighlightMeshClicked(false);
+          setIsObjClicked(false);
           onVesselClick?.(null);
         }}
       />
       
-      {/* High-visibility boundary stroke via Outlines attached directly to highlighted objects */}
-      {isHighlighted && highlightObjects.map(obj => createPortal(
-        <Outlines key={obj.name} thickness={0.015} color={outlineColor} transparent opacity={0.8} />,
-        obj
+      {/* High-visibility boundary stroke via Outlines attached directly to Object_20 and Object_21 */}
+      {isHighlighted && [obj20, obj21].filter(Boolean).map((obj, i) => (
+        createPortal(
+          <Outlines key={i} thickness={0.015} color={outlineColor} transparent opacity={0.8} />,
+          obj
+        )
       ))}
 
       {/* Dynamic Pointer Callouts */}
