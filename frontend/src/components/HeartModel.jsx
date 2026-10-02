@@ -64,28 +64,47 @@ function Callout({ name, points, probability, isSelected, onClick }) {
 export default function HeartModel({ predictions, selectedVessel, onVesselClick }) {
   const { scene } = useGLTF('/heart_model/scene.gltf');
   
+  const vesselProbs = useMemo(() => {
+    return normalizeVesselPredictions(predictions?.vessels);
+  }, [predictions]);
+
+  // Determine the active probability governing Object 20
+  const activeProb = useMemo(() => {
+    if (selectedVessel && vesselProbs[selectedVessel] != null) {
+      return vesselProbs[selectedVessel];
+    }
+    return predictions?.cad_probability || 0;
+  }, [selectedVessel, vesselProbs, predictions]);
+
   const [isObj20Clicked, setIsObj20Clicked] = useState(false);
   const obj20 = useMemo(() => scene.getObjectByName('Object_20'), [scene]);
   
   // Highlight when any pointer is selected or the object itself is clicked
   const isHighlighted = selectedVessel !== null || isObj20Clicked;
   
-  // Add a soft emissive glow to the object when highlighted
+  // Dynamically update the color of object 20 by increasing its dark shade
+  // on a continuous scale based on stenosis predicted probability.
   useEffect(() => {
     if (obj20 && obj20.material) {
       if (isHighlighted) {
-        obj20.material.emissive = new THREE.Color("#0ea5e9"); // light sky blue glow
-        obj20.material.emissiveIntensity = 0.4;
+        const baseColor = new THREE.Color(1, 1, 1);
+        const severeColor = new THREE.Color(0.1, 0.0, 0.0); // very dark necrotic red
+        
+        // Lerp from normal to dark based directly on probability [0, 1]
+        obj20.material.color = baseColor.lerp(severeColor, activeProb);
+        obj20.material.emissiveIntensity = 0; // Remove emissive glow to emphasize dark shade
       } else {
-        obj20.material.emissive = new THREE.Color(0x000000);
-        obj20.material.emissiveIntensity = 0.0;
+        obj20.material.color = new THREE.Color(1, 1, 1); // Reset
       }
     }
-  }, [isHighlighted, obj20]);
+  }, [isHighlighted, obj20, activeProb]);
 
-  const vesselProbs = useMemo(() => {
-    return normalizeVesselPredictions(predictions?.vessels);
-  }, [predictions]);
+  // Dynamic boundary outline color
+  const outlineColor = useMemo(() => {
+    if (activeProb >= 0.7) return "#ef4444"; // Red (High Risk)
+    if (activeProb >= 0.4) return "#f59e0b"; // Amber (Moderate Risk)
+    return "#2dd4bf"; // Teal (Low Risk / Healthy)
+  }, [activeProb]);
 
   // Persistent uniforms for the custom GLSL shader mapping
   const uniforms = useMemo(() => ({
@@ -218,7 +237,7 @@ export default function HeartModel({ predictions, selectedVessel, onVesselClick 
       
       {/* High-visibility boundary stroke via Outlines attached directly to Object_20 */}
       {isHighlighted && obj20 && createPortal(
-        <Outlines thickness={0.015} color="#06b6d4" transparent opacity={0.8} />,
+        <Outlines thickness={0.015} color={outlineColor} transparent opacity={0.8} />,
         obj20
       )}
 

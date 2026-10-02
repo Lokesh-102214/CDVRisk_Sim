@@ -33,10 +33,10 @@ export default function HeartViewer({ predictions, selectedVessel, onVesselClick
       >
         <AdaptiveDpr pixelated />
         <AdaptiveEvents />
-        <Environment preset="studio" />
-        <directionalLight position={[5, 5, 5]} intensity={1.5} />
-        <directionalLight position={[-4, 2, 3]} intensity={0.5} />
-        <ambientLight intensity={0.2} />
+        <Environment preset="city" environmentIntensity={0.5} />
+        <directionalLight position={[5, 5, 5]} intensity={0.6} />
+        <directionalLight position={[-4, 2, 3]} intensity={0.2} />
+        <ambientLight intensity={0.4} />
 
         <Suspense fallback={<LoadingFallback />}>
           <HeartModel
