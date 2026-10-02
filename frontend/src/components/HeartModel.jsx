@@ -8,15 +8,15 @@ import { useMemo, useEffect, useState } from 'react';
 import { useGLTF, Html, Outlines } from '@react-three/drei';
 import { createPortal } from '@react-three/fiber';
 import * as THREE from 'three';
-import { CORONARY_PATHS, VESSELS, normalizeVesselPredictions } from '../config/vessels';
+import { CORONARY_PATHS, POINTER_COORDS, VESSELS, normalizeVesselPredictions } from '../config/vessels';
 
 /**
  * Callout Annotation Marker
  * Positioned exactly on the heart mesh, providing technical detail and probability.
  */
-function Callout({ name, points, probability, isSelected, onClick }) {
-  // Find the rough midpoint of the artery path to anchor the callout
-  const pos = points[Math.floor(points.length / 2)];
+function Callout({ name, probability, isSelected, onClick }) {
+  // Use exact pointer coordinate mapped by user instead of dynamic midpoint
+  const pos = POINTER_COORDS[name];
   const vesselInfo = VESSELS[name];
   const probPct = probability != null ? (probability * 100).toFixed(0) + '%' : '--%';
   const isStenotic = probability >= 0.5;
@@ -252,7 +252,6 @@ export default function HeartModel({ predictions, selectedVessel, onVesselClick 
         <Callout
           key={name}
           name={name}
-          points={points}
           probability={vesselProbs[name]}
           isSelected={selectedVessel === name}
           onClick={onVesselClick}

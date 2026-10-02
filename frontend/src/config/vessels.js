@@ -55,6 +55,15 @@ export const CORONARY_PATHS = {
 };
 
 /**
+ * Exact coordinates for the anatomical pointer callouts.
+ */
+export const POINTER_COORDS = {
+  LAD: [0.3130, -0.0468, 0.6912],
+  LCX: [0.4546, -0.1299, 0.2200],
+  RCA: [-0.1943, -0.0183, 0.3157],
+};
+
+/**
  * Normalize raw vessel predictions from the API into a stable map.
  * @param {Array} vessels - Array of { vessel, probability } from API
  * @returns {{ LAD: number|null, LCX: number|null, RCA: number|null }}
