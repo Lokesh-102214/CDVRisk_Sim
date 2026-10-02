@@ -4,8 +4,9 @@
  * to create a dynamic dark overlay on the heart mesh along the coronary paths based on stenosis probability.
  * Also renders beautiful HTML callouts acting as technical annotations.
  */
-import { useMemo, useEffect } from 'react';
-import { useGLTF, Html } from '@react-three/drei';
+import { useMemo, useEffect, useState } from 'react';
+import { useGLTF, Html, Outlines } from '@react-three/drei';
+import { createPortal } from '@react-three/fiber';
 import * as THREE from 'three';
 import { CORONARY_PATHS, VESSELS, normalizeVesselPredictions } from '../config/vessels';
 
@@ -63,6 +64,25 @@ function Callout({ name, points, probability, isSelected, onClick }) {
 export default function HeartModel({ predictions, selectedVessel, onVesselClick }) {
   const { scene } = useGLTF('/heart_model/scene.gltf');
   
+  const [isObj20Clicked, setIsObj20Clicked] = useState(false);
+  const obj20 = useMemo(() => scene.getObjectByName('Object_20'), [scene]);
+  
+  // Highlight when any pointer is selected or the object itself is clicked
+  const isHighlighted = selectedVessel !== null || isObj20Clicked;
+  
+  // Add a soft emissive glow to the object when highlighted
+  useEffect(() => {
+    if (obj20 && obj20.material) {
+      if (isHighlighted) {
+        obj20.material.emissive = new THREE.Color("#0ea5e9"); // light sky blue glow
+        obj20.material.emissiveIntensity = 0.4;
+      } else {
+        obj20.material.emissive = new THREE.Color(0x000000);
+        obj20.material.emissiveIntensity = 0.0;
+      }
+    }
+  }, [isHighlighted, obj20]);
+
   const vesselProbs = useMemo(() => {
     return normalizeVesselPredictions(predictions?.vessels);
   }, [predictions]);
@@ -180,7 +200,28 @@ export default function HeartModel({ predictions, selectedVessel, onVesselClick 
 
   return (
     <group scale={3}>
-      <primitive object={scene} />
+      <primitive 
+        object={scene} 
+        onClick={(e) => {
+          e.stopPropagation();
+          if (e.object.name === 'Object_20') {
+            setIsObj20Clicked(true);
+          } else {
+            setIsObj20Clicked(false);
+          }
+        }}
+        onPointerMissed={() => {
+          setIsObj20Clicked(false);
+          onVesselClick?.(null);
+        }}
+      />
+      
+      {/* High-visibility boundary stroke via Outlines attached directly to Object_20 */}
+      {isHighlighted && obj20 && createPortal(
+        <Outlines thickness={0.015} color="#06b6d4" transparent opacity={0.8} />,
+        obj20
+      )}
+
       {/* Dynamic Pointer Callouts */}
       {Object.entries(CORONARY_PATHS).map(([name, points]) => (
         <Callout
