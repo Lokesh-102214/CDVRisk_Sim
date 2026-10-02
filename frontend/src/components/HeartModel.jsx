@@ -1,103 +1,59 @@
 /**
- * HeartModel — Loads the GLTF heart model and overlays programmatic coronary arteries.
- * Arteries are rendered as thick overlay regions using MultiplyBlending to simulate
- * a "painted" dark area mapped to the surface.
+ * HeartModel — Loads the GLTF heart model and dynamically alters its material using a custom GLSL shader.
+ * Instead of drawing 3D tubes, it injects a smooth distance-field calculation into the fragment shader
+ * to create a dynamic dark overlay on the heart mesh along the coronary paths based on stenosis probability.
+ * Also renders beautiful HTML callouts acting as technical annotations.
  */
-import { useRef, useMemo, useState } from 'react';
+import { useMemo, useEffect } from 'react';
 import { useGLTF, Html } from '@react-three/drei';
 import * as THREE from 'three';
 import { CORONARY_PATHS, VESSELS, normalizeVesselPredictions } from '../config/vessels';
 
-function ArteryOverlay({ name, points, probability, isSelected, isHovered, onPointerOver, onPointerOut, onClick }) {
-  const meshRef = useRef();
-
-  const curve = useMemo(() => {
-    if (!points || points.length < 2) return null;
-    const vectors = points.map((p) => new THREE.Vector3(p[0], p[1], p[2]));
-    return new THREE.CatmullRomCurve3(vectors, false, 'catmullrom', 0.5);
-  }, [points]);
-
-  // Dark -> Darker -> Darkest mapped to opacity
-  const overlayOpacity = useMemo(() => {
-    if (probability === null || probability === undefined) return 0.1; // Default faint line
-    // Map probability (0.0 to 1.0) to opacity (0.2 to 0.85)
-    return 0.2 + (probability * 0.65);
-  }, [probability]);
-
-  if (!curve) return null;
-
-  // Wider radius to simulate an area/painted swath rather than a thin wire
-  const baseRadius = 0.008;
-  const radius = isSelected ? baseRadius * 1.3 : isHovered ? baseRadius * 1.1 : baseRadius;
-
-  const markerPos = points[Math.floor(points.length / 2)];
+/**
+ * Callout Annotation Marker
+ * Positioned exactly on the heart mesh, providing technical detail and probability.
+ */
+function Callout({ name, points, probability, isSelected, onClick }) {
+  // Find the rough midpoint of the artery path to anchor the callout
+  const pos = points[Math.floor(points.length / 2)];
   const vesselInfo = VESSELS[name];
+  const probPct = probability != null ? (probability * 100).toFixed(0) + '%' : '--%';
+  const isStenotic = probability >= 0.5;
+  const isEvaluated = probability != null;
 
   return (
-    <group>
-      <mesh
-        ref={meshRef}
-        name={name}
-        onPointerOver={(e) => {
-          e.stopPropagation();
-          onPointerOver?.(name);
-          document.body.style.cursor = 'pointer';
-        }}
-        onPointerOut={(e) => {
-          e.stopPropagation();
-          onPointerOut?.();
-          document.body.style.cursor = 'auto';
-        }}
-        onClick={(e) => {
-          e.stopPropagation();
-          onClick?.(name);
-        }}
-      >
-        <tubeGeometry args={[curve, 64, radius, 8, false]} />
-        
-        {/* MultiplyBlending acts like a dark marker pen on the underlying mesh texture */}
-        <meshBasicMaterial
-          color="#000000"
-          transparent={true}
-          opacity={overlayOpacity}
-          depthWrite={false}
-          blending={THREE.MultiplyBlending}
-          polygonOffset={true}
-          polygonOffsetFactor={-1}
-          polygonOffsetUnits={-1}
-        />
-      </mesh>
-
-      {/* Annotation marker */}
-      <Html position={markerPos} center zIndexRange={[100, 0]}>
-        <div className="relative group">
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              onClick?.(name);
-            }}
-            onPointerOver={() => onPointerOver?.(name)}
-            onPointerOut={() => onPointerOut?.()}
-            className={`w-7 h-7 rounded-full border-2 text-xs font-bold transition-all duration-200 flex items-center justify-center select-none shadow-xl
-              ${isSelected
-                ? 'border-white bg-slate-900/95 text-white scale-110'
-                : 'border-white/50 bg-slate-800/80 text-white hover:border-white hover:bg-slate-900'
-              }`}
-          >
-            {vesselInfo.index}
-          </button>
-          {/* Tooltip */}
-          <div className={`absolute top-full left-1/2 -translate-x-1/2 mt-1.5 px-2.5 py-1 bg-slate-900/95 text-white text-[10px] rounded-md whitespace-nowrap pointer-events-none transition-all duration-200 border border-slate-700/50 shadow-lg
-            ${isSelected || isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-1'}
+    <group position={pos}>
+      <Html center zIndexRange={[100, 0]}>
+        <div 
+          onClick={(e) => { e.stopPropagation(); onClick?.(name); }}
+          className={`
+            flex flex-col items-center cursor-pointer transition-transform duration-300 pointer-events-auto
+            ${isSelected ? 'scale-110 z-50' : 'scale-100 hover:scale-105 opacity-90 hover:opacity-100'}
+          `}
+        >
+          {/* Callout Info Box */}
+          <div className={`
+            px-3 py-2 rounded-lg backdrop-blur-md border shadow-2xl mb-0.5 flex flex-col gap-0.5 min-w-[120px] pointer-events-auto
+            ${!isEvaluated ? 'bg-slate-900/80 border-slate-600/50' : 
+              isStenotic ? 'bg-black/80 border-red-500/60 shadow-red-900/30' : 
+              'bg-slate-900/80 border-teal-500/50 shadow-teal-900/20'}
           `}>
-            <span className="font-semibold">{name}</span>
-            <span className="text-slate-400"> — {vesselInfo.fullName}</span>
-            {probability !== null && (
-              <div className="mt-0.5 text-[9px] text-slate-300">
-                Stenosis: {(probability * 100).toFixed(0)}%
-              </div>
-            )}
+            <div className="flex justify-between items-center text-[13px] font-bold text-white">
+              <span>{name}</span>
+              <span className={!isEvaluated ? 'text-slate-400' : isStenotic ? 'text-red-400' : 'text-teal-400'}>
+                {probPct}
+              </span>
+            </div>
+            <div className="text-[10px] text-slate-300 leading-tight">
+              {vesselInfo.fullName}
+            </div>
           </div>
+          
+          {/* Technical Pointer Line */}
+          <div className={`w-[2px] h-6 ${!isEvaluated ? 'bg-slate-500/50' : isStenotic ? 'bg-red-500/80' : 'bg-teal-500/50'}`} />
+          
+          {/* Anchor Dot on the mesh */}
+          <div className={`w-2.5 h-2.5 rounded-full ${!isEvaluated ? 'bg-slate-400' : isStenotic ? 'bg-red-500 shadow-[0_0_12px_#ef4444]' : 'bg-teal-400 shadow-[0_0_8px_#2dd4bf]'}`} />
         </div>
       </Html>
     </group>
@@ -105,29 +61,134 @@ function ArteryOverlay({ name, points, probability, isSelected, isHovered, onPoi
 }
 
 export default function HeartModel({ predictions, selectedVessel, onVesselClick }) {
-  // Uses the local GLTF model from public/heart_model/
   const { scene } = useGLTF('/heart_model/scene.gltf');
-  const [hoveredVessel, setHoveredVessel] = useState(null);
-
+  
   const vesselProbs = useMemo(() => {
     return normalizeVesselPredictions(predictions?.vessels);
   }, [predictions]);
 
+  // Persistent uniforms for the custom GLSL shader mapping
+  const uniforms = useMemo(() => ({
+    uLadPoints: { value: CORONARY_PATHS.LAD.map(p => new THREE.Vector3(...p)) },
+    uLcxPoints: { value: CORONARY_PATHS.LCX.map(p => new THREE.Vector3(...p)) },
+    uRcaPoints: { value: CORONARY_PATHS.RCA.map(p => new THREE.Vector3(...p)) },
+    uProbs: { value: new THREE.Vector3(0, 0, 0) }
+  }), []);
+
+  // Update shader probability intensity when predictions change
+  useEffect(() => {
+    uniforms.uProbs.value.set(
+      vesselProbs.LAD || 0,
+      vesselProbs.LCX || 0,
+      vesselProbs.RCA || 0
+    );
+  }, [vesselProbs, uniforms]);
+
+  // Apply custom GLSL shader mapping directly to the existing GLTF mesh material
+  useEffect(() => {
+    scene.traverse((child) => {
+      if (child.isMesh) {
+        // Prevent re-patching if Hot Module Replacement triggers
+        if (child.userData.shaderPatched) return;
+        child.userData.shaderPatched = true;
+
+        const mat = child.material.clone();
+        mat.onBeforeCompile = (shader) => {
+          // Pass coordinate arrays and probabilities as uniforms
+          shader.uniforms.uLadPoints = uniforms.uLadPoints;
+          shader.uniforms.uLcxPoints = uniforms.uLcxPoints;
+          shader.uniforms.uRcaPoints = uniforms.uRcaPoints;
+          shader.uniforms.uProbs = uniforms.uProbs;
+
+          // VERTEX SHADER: Pass local position to fragment shader
+          shader.vertexShader = `
+            varying vec3 vLocalPos;
+          ` + shader.vertexShader;
+          
+          shader.vertexShader = shader.vertexShader.replace(
+            `#include <begin_vertex>`,
+            `
+            #include <begin_vertex>
+            vLocalPos = position;
+            `
+          );
+
+          // FRAGMENT SHADER: Math for rendering dark color overlay over segments
+          shader.fragmentShader = `
+            uniform vec3 uLadPoints[5];
+            uniform vec3 uLcxPoints[3];
+            uniform vec3 uRcaPoints[5];
+            uniform vec3 uProbs;
+            varying vec3 vLocalPos;
+
+            // Compute closest distance from a pixel to a 3D line segment
+            float distToSegment(vec3 p, vec3 a, vec3 b) {
+                vec3 pa = p - a, ba = b - a;
+                float h = clamp(dot(pa, ba) / dot(ba, ba), 0.0, 1.0);
+                return length(pa - ba * h);
+            }
+          ` + shader.fragmentShader;
+
+          // Inject custom color mapping immediately after PBR base texture is mapped
+          shader.fragmentShader = shader.fragmentShader.replace(
+            `#include <map_fragment>`,
+            `
+            #include <map_fragment>
+            
+            // LAD Segment Distance Calculation (4 segments from 5 points)
+            float dLad = 999.0;
+            dLad = min(dLad, distToSegment(vLocalPos, uLadPoints[0], uLadPoints[1]));
+            dLad = min(dLad, distToSegment(vLocalPos, uLadPoints[1], uLadPoints[2]));
+            dLad = min(dLad, distToSegment(vLocalPos, uLadPoints[2], uLadPoints[3]));
+            dLad = min(dLad, distToSegment(vLocalPos, uLadPoints[3], uLadPoints[4]));
+
+            // LCX Segment Distance Calculation (2 segments from 3 points)
+            float dLcx = 999.0;
+            dLcx = min(dLcx, distToSegment(vLocalPos, uLcxPoints[0], uLcxPoints[1]));
+            dLcx = min(dLcx, distToSegment(vLocalPos, uLcxPoints[1], uLcxPoints[2]));
+
+            // RCA Segment Distance Calculation (4 segments from 5 points)
+            float dRca = 999.0;
+            dRca = min(dRca, distToSegment(vLocalPos, uRcaPoints[0], uRcaPoints[1]));
+            dRca = min(dRca, distToSegment(vLocalPos, uRcaPoints[1], uRcaPoints[2]));
+            dRca = min(dRca, distToSegment(vLocalPos, uRcaPoints[2], uRcaPoints[3]));
+            dRca = min(dRca, distToSegment(vLocalPos, uRcaPoints[3], uRcaPoints[4]));
+
+            float radius = 0.035;   // Spread radius of the dark overlay
+            float feather = 0.025;  // Soft, interpolated fade edge
+
+            // Map intensity directly proportional to stenosis probability
+            float ladMix = smoothstep(radius, radius - feather, dLad) * uProbs.x;
+            float lcxMix = smoothstep(radius, radius - feather, dLcx) * uProbs.y;
+            float rcaMix = smoothstep(radius, radius - feather, dRca) * uProbs.z;
+
+            // Aggregate mapped areas
+            float totalMix = clamp(ladMix + lcxMix + rcaMix, 0.0, 1.0);
+            
+            // Define custom "dark fade" color indicating severe stenosis/necrosis (Darkest Red/Black)
+            vec3 stenosisColor = vec3(0.04, 0.0, 0.0);
+            
+            // Interpolate the base texture diffuse map with the dark mapping 
+            diffuseColor.rgb = mix(diffuseColor.rgb, stenosisColor, totalMix * 0.95);
+            `
+          );
+        };
+        child.material = mat;
+      }
+    });
+  }, [scene, uniforms]);
+
   return (
     <group scale={3}>
-      <primitive 
-        object={scene}
-      />
+      <primitive object={scene} />
+      {/* Dynamic Pointer Callouts */}
       {Object.entries(CORONARY_PATHS).map(([name, points]) => (
-        <ArteryOverlay
+        <Callout
           key={name}
           name={name}
           points={points}
           probability={vesselProbs[name]}
           isSelected={selectedVessel === name}
-          isHovered={hoveredVessel === name}
-          onPointerOver={setHoveredVessel}
-          onPointerOut={() => setHoveredVessel(null)}
           onClick={onVesselClick}
         />
       ))}
@@ -135,5 +196,4 @@ export default function HeartModel({ predictions, selectedVessel, onVesselClick 
   );
 }
 
-// Preload the model
 useGLTF.preload('/heart_model/scene.gltf');
