@@ -62,7 +62,7 @@ function Callout({ name, probability, isSelected, onClick }) {
 }
 
 export default function HeartModel({ predictions, selectedVessel, onVesselClick }) {
-  const { scene } = useGLTF('/heart_model/scene.gltf');
+  const { scene } = useGLTF('/heart_model/model.glb');
   
   const vesselProbs = useMemo(() => {
     return normalizeVesselPredictions(predictions?.vessels);
