@@ -3,7 +3,17 @@
  */
 import axios from 'axios';
 
-const apiBaseUrl = import.meta.env.VITE_API_URL || '';
+let apiBaseUrl = import.meta.env.VITE_API_URL || '';
+
+// Clean up the URL provided by the user in Vercel environment variables:
+// 1. Remove trailing slash if present
+if (apiBaseUrl.endsWith('/')) {
+  apiBaseUrl = apiBaseUrl.slice(0, -1);
+}
+// 2. Remove /api if they already included it, to avoid /api/api
+if (apiBaseUrl.endsWith('/api')) {
+  apiBaseUrl = apiBaseUrl.slice(0, -4);
+}
 
 const api = axios.create({
   baseURL: `${apiBaseUrl}/api`,
